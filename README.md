@@ -15,11 +15,11 @@ Transient Intelligence (TI) is an evidence-first document analysis platform for 
 - Deterministic integration paths for API and MCP clients
 - Production-ready endpoint contracts at `https://api.transientintelligence.com`
 
-## Developer Quickstart
+## Quick start (3 steps)
 
-1. Create an account and generate an API key.
-2. Call the one-call orchestrator endpoint.
-3. Enforce citation checks in your integration logic.
+1. **Get API key** — Create an account, log in, generate a key from the [Developers dashboard](https://transientintelligence.com/dashboard/developers).
+2. **First request** — Call the one-call orchestrator endpoint.
+3. **Enforce citations** — If `citations` is empty, return "No evidence found"; do not synthesize unsupported claims.
 
 ```bash
 curl -X POST "https://api.transientintelligence.com/api/models/v1/answer" \
@@ -28,35 +28,35 @@ curl -X POST "https://api.transientintelligence.com/api/models/v1/answer" \
   -d '{"question":"What was Q3 revenue?","input":"Q3 revenue reached $1.2M.","top_k":5}'
 ```
 
-Minimal integration rule:
+## Core API surfaces
 
-- If `citations` is empty, return "No evidence found" and do not synthesize unsupported claims.
+| Endpoint | Purpose |
+|----------|---------|
+| `POST /api/models/v1/answer` | One-call upload + retrieval + answer (recommended default) |
+| `POST /api/models/v1/upload` | Ingest source data, return `session_id` |
+| `POST /api/models/v1/ask` | Query a retrieval-ready session |
+| `GET /api/models/v1/runs/{id}` | Poll async run status |
+| `GET /api/models/v1/runs/{id}/results` | Fetch final run output |
 
-## Core API Surfaces
+## Supported input types
 
-- `POST /api/models/v1/answer` - one-call upload + retrieval + answer (recommended default)
-- `POST /api/models/v1/upload` - ingest source data and return `session_id` (and optional `run_id`)
-- `POST /api/models/v1/ask` - query a retrieval-ready session
-- `GET /api/models/v1/runs/{id}` - poll async run status
-- `GET /api/models/v1/runs/{id}/results` - fetch final run output
+`.pdf`, `.docx`, `.xlsx`, `.csv`, `.txt`, `.json`
 
-## MCP Integration (TI Tools)
+## MCP integration (TI tools)
 
-Preferred path:
+**Preferred path:**
 
 1. Call `ti_workflow_policy` once at session start.
 2. Use `ti_run_workflow` as default tool.
 3. Follow `action_required` / retry signals when indexing is in progress.
 
-Manual path:
-
-- `ti_upload` -> `ti_run_status` -> `ti_ask`
+**Manual path:** `ti_upload` → `ti_run_status` → `ti_ask`
 
 ## Guides
 
-- [Quickstart guide](docs/quickstart.md)
-- [API integration guide](docs/api-integration.md)
-- [MCP integration guide](docs/mcp-integration.md)
+- [Quickstart guide](docs/quickstart.md) — API key, first request, cURL/JS/Python, AI integration prompt
+- [API integration guide](docs/api-integration.md) — Endpoints, request params, response handling
+- [MCP integration guide](docs/mcp-integration.md) — Tool workflow, transport resolver
 
 ## Public-Safe Scope
 
