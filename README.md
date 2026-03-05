@@ -2,6 +2,12 @@
 
 Transient Intelligence (TI) is an evidence-first document analysis platform for developers. It reduces hallucination risk by ranking evidence and returning citation-grounded outputs through stable API and MCP integration contracts.
 
+## Legal Notice
+
+- All rights reserved.
+- Public docs/examples only.
+- No rights granted to TI proprietary implementation.
+
 ## Website
 
 - [Create account](https://transientintelligence.com/auth/register)
@@ -15,7 +21,7 @@ Transient Intelligence (TI) is an evidence-first document analysis platform for 
 - Deterministic integration paths for API and MCP clients
 - Production-ready endpoint contracts at `https://api.transientintelligence.com`
 
-## Quick start (3 steps)
+## Developer Quickstart
 
 1. **Get API key** — Create an account, log in, generate a key from the [Developers dashboard](https://transientintelligence.com/dashboard/developers).
 2. **First request** — Call the one-call orchestrator endpoint.
@@ -44,13 +50,25 @@ curl -X POST "https://api.transientintelligence.com/api/models/v1/answer" \
 
 ## MCP integration (TI tools)
 
-**Preferred path:**
+Use MCP when you want AI clients (Cursor, Claude Desktop, ChatGPT Desktop, or other MCP-compatible tools) to run evidence-grounded Q&A workflows without custom API wiring.
+
+**Preferred workflow-run path:**
 
 1. Call `ti_workflow_policy` once at session start.
 2. Use `ti_run_workflow` as default tool.
 3. Follow `action_required` / retry signals when indexing is in progress.
 
+**Flow:** `ti_workflow_policy` -> `ti_run_workflow` -> citations returned
+
+**`ti_run_workflow` examples:**
+
+- Inline text: ask + ingest in one call
+- HTTPS file URL: upload and query a document in one call
+- Existing session: query previously indexed content by `session_id`
+
 **Manual path:** `ti_upload` → `ti_run_status` → `ti_ask`
+
+See full MCP setup, client config, and transport decision table in [MCP integration guide](docs/mcp-integration.md).
 
 ## Guides
 
