@@ -4,7 +4,7 @@ Everything you need to integrate the Transient Intelligence API into your produc
 
 ## Tools & Artifacts
 
-Download official API specifications and test collections:
+Download official API specifications and test collections from the docs site:
 
 - **Postman Collection** — [TI01_V1_Postman_Collection.json](https://transientintelligence.com/TI01_V1_Postman_Collection.json) — Pre-configured requests and auth
 - **OpenAPI Spec** — [TI01_V1_OPENAPI.yaml](https://transientintelligence.com/TI01_V1_OPENAPI.yaml) — YAML schema for auto-generation

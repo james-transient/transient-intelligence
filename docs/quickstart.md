@@ -131,7 +131,7 @@ Response:  { answer: { summary, confidence }, citations: [{ quote, locator, rele
 
 ## 6. SDKs & client libraries
 
-There is currently no official SDK. The API is plain REST — any HTTP client works. To auto-generate a typed client, download the [OpenAPI YAML](https://transientintelligence.com/TI01_V1_OPENAPI.yaml) and use [openapi-generator](https://openapi-generator.tech) or [openapi-ts](https://github.com/hey-api/openapi-ts).
+There is currently no official SDK. The API is plain REST — any HTTP client works. To auto-generate a typed client, download the [OpenAPI YAML](https://transientintelligence.com/TI01_V1_OPENAPI.yaml) from the docs site and use [openapi-generator](https://openapi-generator.tech) or [openapi-ts](https://github.com/hey-api/openapi-ts).
 
 ## Next steps
 
