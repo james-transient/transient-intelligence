@@ -4,25 +4,38 @@ Connect any MCP-compatible AI client to Transient Intelligence. The TI MCP serve
 
 ## Setup
 
-The TI MCP server runs as a local stdio process. Add it to your client's MCP configuration and provide your API key via the `TI_API_KEY` environment variable.
+You can use TI MCP in two ways:
+- Cloud MCP (recommended for onboarding): point client to hosted MCP URL and send API key in headers.
+- Local stdio MCP (advanced/local dev): run local server process with env vars.
+
+For a user-first onboarding path, see: [TI Claude Desktop Cloud Setup](claude-desktop-cloud-setup.md).
 
 ### Claude Desktop
 
-Config: `~/Library/Application Support/Claude/claude_desktop_config.json`. Restart Claude Desktop after saving.
+Recommended: use **Settings -> Connectors -> Add custom connector**.
+
+Connector values:
+- URL: `https://api.transientintelligence.com/mcp`
+- Header: `x-api-key: ti_int_replace_with_your_real_key`
+
+Restart Claude Desktop after saving.
+
+Config-file fallback (`~/Library/Application Support/Claude/claude_desktop_config.json`):
 
 ```json
 {
   "mcpServers": {
     "transient-intelligence": {
-      "command": "node",
-      "args": ["/path/to/ti-mcp-stdio.mjs"],
-      "env": {
-        "TI_API_KEY": "your_api_key_here"
+      "url": "https://api.transientintelligence.com/mcp",
+      "headers": {
+        "x-api-key": "ti_int_replace_with_your_real_key"
       }
     }
   }
 }
 ```
+
+Fallback for older Claude builds: use command-based local stdio mode (`node` + `ti-mcp-stdio.mjs` + `TI_API_KEY` env).
 
 ### Cursor
 
@@ -68,6 +81,15 @@ ti_run_workflow({ question: "Summarise the key findings.", input_url: "https://s
 ```
 ti_run_workflow({ session_id: "ti-01-session-abc123", question: "What were the risks identified?" })
 ```
+
+## Session management (important)
+
+Reusing the same `session_id` across unrelated reviews can muddy prior context and make results harder to interpret.
+
+- Reuse `session_id` only when follow-up questions refer to the same source set.
+- Start a new session for a new document pack, a new review objective, or a new customer/case.
+- For strict separation, treat each review job as a fresh session and persist the returned `session_id` per job.
+- In multi-tenant workflows, never share a `session_id` across tenants/projects.
 
 ## Manual flow
 

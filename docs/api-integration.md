@@ -63,6 +63,15 @@ Poll the status of an asynchronous run. Call after `/upload` returns `retrieval_
 
 Retrieve the final output of a completed run.
 
+## Session management (important)
+
+`session_id` controls retrieval scope. Reusing one session across unrelated reviews can contaminate context.
+
+- Reuse `session_id` only for iterative Q&A over the same evidence corpus.
+- Start a new session when switching documents, review goals, or customer/case boundaries.
+- Persist `session_id` per workflow/job, not as a global shared default.
+- In multi-tenant systems, enforce tenant/project scoping so sessions are not reused across boundaries.
+
 ## Response handling
 
 **Completed:**

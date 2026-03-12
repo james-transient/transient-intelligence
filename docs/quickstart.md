@@ -97,7 +97,14 @@ print(data["citations"])
 - If `citations` is empty, return "No evidence found" — do not fall back to `answer.summary`.
 - Do not fill gaps with unsupported model assumptions.
 
-## 5. Let AI build your integration
+## 5. Session management (important)
+
+- Treat `session_id` as review-scope state, not user-scope state.
+- Reuse a session only for follow-up questions on the same evidence set.
+- Start a new session when documents, review goals, or customer/case context changes.
+- Persist `session_id` per job/workflow, not as a global shared default.
+
+## 6. Let AI build your integration
 
 Copy this prompt and paste it into Claude, ChatGPT, or any capable model. Fill in the placeholder at the bottom and it will generate working integration code.
 
@@ -129,7 +136,7 @@ Response:  { answer: { summary, confidence }, citations: [{ quote, locator, rele
  'Make scenario: Notion page updated → analyse → write answer back to Notion']
 ```
 
-## 6. SDKs & client libraries
+## 7. SDKs & client libraries
 
 There is currently no official SDK. The API is plain REST — any HTTP client works. To auto-generate a typed client, download the [OpenAPI YAML](https://transientintelligence.com/TI01_V1_OPENAPI.yaml) from the docs site and use [openapi-generator](https://openapi-generator.tech) or [openapi-ts](https://github.com/hey-api/openapi-ts).
 
@@ -137,5 +144,6 @@ There is currently no official SDK. The API is plain REST — any HTTP client wo
 
 - [API integration guide](api-integration.md)
 - [MCP integration guide](mcp-integration.md)
+- [Claude Desktop cloud setup](claude-desktop-cloud-setup.md)
 - [AI Client setup guides](https://transientintelligence.com/docs/integrations/ai-clients)
 - [Automation platform guides](https://transientintelligence.com/docs/integrations/automation)

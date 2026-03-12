@@ -26,6 +26,7 @@ Transient Intelligence (TI) is an evidence-first document analysis platform for 
 1. **Get API key** — Create an account, log in, generate a key from the [Developers dashboard](https://transientintelligence.com/dashboard/developers).
 2. **First request** — Call the one-call orchestrator endpoint.
 3. **Enforce citations** — If `citations` is empty, return "No evidence found"; do not synthesize unsupported claims.
+4. **Manage sessions carefully** — Treat `session_id` as review-scope state. Reuse only for the same evidence set; start a new session for new documents or review goals.
 
 ```bash
 curl -X POST "https://api.transientintelligence.com/api/models/v1/answer" \
@@ -75,6 +76,7 @@ See full MCP setup, client config, and transport decision table in [MCP integrat
 - [Quickstart guide](docs/quickstart.md) — API key, first request, cURL/JS/Python, AI integration prompt
 - [API integration guide](docs/api-integration.md) — Endpoints, request params, response handling
 - [MCP integration guide](docs/mcp-integration.md) — Tool workflow, transport resolver
+- [Claude Desktop cloud setup](docs/claude-desktop-cloud-setup.md) — User onboarding for hosted TI MCP
 
 ## Public-Safe Scope
 
